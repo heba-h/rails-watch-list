@@ -8,10 +8,10 @@
     <li class="list-group-item">
     <%= movie.title %>
     <%= movie.overview %>
-    <%= movie.poster_url %>
-    <%= Bookmark.find_by(movie_id: movie.id, list_id: @list_id).comment %>
+    <%# <%= movie.poster_url %>
+    <p><%= Bookmark.find_by(movie_id: movie.id, list_id: @list.id).comment %></p>
     <%= link_to "Delete Bookmark",
-        bookmark_path[Bookmark.find_by(movie_id: movie.id, list_id: @list.id)],
+        bookmark_path(Bookmark.find_by(movie_id: movie.id, list_id: @list.id)),
         data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}
     %>
     </li>
@@ -19,6 +19,7 @@
 </ul>
 <br>
 
-<%= link_to 'add a bookmark', new_list_bookmark_path(@list) %>
-<%= link_to 'Back to list', lists_path %>
+<%= link_to 'Add a bookmark', new_list_bookmark_path(@list) %>
+<%= link_to "Delete list", list_path(@list.id), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
+<%= link_to 'Back to list', root_path %>
 </div>
